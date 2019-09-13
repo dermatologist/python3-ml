@@ -53,6 +53,7 @@ ENV write_timeout=30
 ENV upstream_timeout=25
 ENV fprocess="python3 index.py"
 ENV function_root="/home/app/function"
+ENV model_file="export.pkl"
 
 # Healthcheck interval increased from 1 to 10 s
 HEALTHCHECK --interval=10s CMD [ -e /tmp/.lock ] || exit 1

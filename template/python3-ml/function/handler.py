@@ -2,20 +2,19 @@ import json
 import os
 from pathlib import PurePath
 
+from fastai import *
+from fastai.vision import *
+from io import BytesIO
+
 # No warnings in production
 import warnings
 warnings.filterwarnings("ignore")
 
 
-FUNCTION_ROOT = os.environ.get("function_root", "/root/function/")
+FUNCTION_ROOT = os.environ.get("function_root", "/root/function")
+MODEL_FILE = os.environ.get("model_file", "export.pkl")
 
-# Load model here
-# model = 
-
-# fill in weights
-Model.load_state_dict(
-    torch.load(str(PurePath(FUNCTION_ROOT, "data/exported-state-dict.pt")))
-)
+learn = load_learner(FUNCTION_ROOT + '/model/', MODEL_FILE)
 
 def handle(req):
     """handle a request to the function
@@ -23,14 +22,17 @@ def handle(req):
         req (str): request body
     """
     event = json.loads(req)
-    concepts = my_function(event['var1'], int(event['var2']))
+
+    img = open_image(BytesIO(base64.b64decode(event['img'])))
+    prediction = learn.predict(img)[0]
+    return JSONResponse({'result': str(prediction)})
+
     result = {
-        "var1": event['var1'],
-        "var2": event['var2'],
-        "var1s": concepts
+        "function": "Function",
+        "prediction": str(prediction)
     }
+
 
     return json.dumps(result)
 
-def my_function(var1, var2):
-    return model.my_task(var1, var2=tn)
+
