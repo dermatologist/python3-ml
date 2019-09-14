@@ -1,5 +1,6 @@
 import json
 import os
+import base64
 from pathlib import PurePath
 
 from fastai import *

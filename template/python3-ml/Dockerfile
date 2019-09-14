@@ -2,7 +2,7 @@ FROM python:3-slim
 
 # Allows you to add additional packages via build-arg
 ARG ADDITIONAL_PACKAGE
-ARG CHANNEL=pytorch
+ARG CHANNEL=fastai
 
 RUN addgroup app && adduser app --system --ingroup app \
     && mkdir -p /opt/conda && chown -R app /opt/conda \
