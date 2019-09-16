@@ -1,8 +1,7 @@
 import json
 import os
+#from pathlib import PurePath
 import base64
-from pathlib import PurePath
-
 from fastai import *
 from fastai.vision import *
 from io import BytesIO
@@ -26,7 +25,6 @@ def handle(req):
 
     img = open_image(BytesIO(base64.b64decode(event['img'])))
     prediction = learn.predict(img)[0]
-    return JSONResponse({'result': str(prediction)})
 
     result = {
         "function": "Function",
