@@ -23,16 +23,16 @@ WORKDIR /home/app/
 USER app
 
 
-COPY requirements.txt   .
-RUN conda install -n fastai-vision --file requirements.txt -c ${CHANNEL}
+# COPY requirements.txt   .
+# RUN conda install -n base --file requirements.txt -c ${CHANNEL}
 COPY index.py           .
 
 RUN mkdir -p function
 RUN touch ./function/__init__.py
 
 WORKDIR /home/app/function/
-COPY function/requirements.txt    .
-RUN conda install -n fastai-vision --file requirements.txt -c ${CHANNEL}
+# COPY function/requirements.txt	.
+# RUN conda install -n base --file requirements.txt -c ${CHANNEL}
 
 WORKDIR /home/app/
 COPY function/ ./function
@@ -42,10 +42,10 @@ COPY function/ ./function
 ENV read_timeout=30
 ENV write_timeout=30
 ENV upstream_timeout=25
-ENV fprocess="/opt/conda/envs/fastai-vision/bin/python3 index.py"
+ENV fprocess="python3 index.py"
 ENV function_root="/home/app/function"
-RUN conda init bash
-RUN echo "conda activate fastai-vision" >> /home/app/.bashrc
+# RUN conda init bash
+# RUN echo "conda activate base" >> /home/app/.bashrc
 
 # Healthcheck interval increased from 1 to 10 s
 HEALTHCHECK --interval=10s CMD [ -e /tmp/.lock ] || exit 1
