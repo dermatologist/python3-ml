@@ -44,6 +44,8 @@ ENV read_timeout=30
 ENV write_timeout=30
 ENV upstream_timeout=25
 ENV fprocess="python3 index.py"
+ENV cgi_headers="true"
+ENV mode="http"
 ENV function_root="/home/app/function"
 # RUN conda init bash
 # RUN echo "conda activate base" >> /home/app/.bashrc
