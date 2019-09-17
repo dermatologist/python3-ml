@@ -1,20 +1,19 @@
 import json
-import os
-#from pathlib import PurePath
-import base64
-from fastai import *
-from fastai.vision import *
+from PIL import Image
 from io import BytesIO
+import base64
+import face_recognition as fr
+import numpy as np
+import cv2
 
 # No warnings in production
 import warnings
+
 warnings.filterwarnings("ignore")
 
 
-FUNCTION_ROOT = os.environ.get("function_root", "/root/function")
-MODEL_FILE = os.environ.get("model_file", "export.pkl")
-
-learn = load_learner(FUNCTION_ROOT + '/model/', MODEL_FILE)
+# Load model here
+# model = 
 
 def handle(req):
     """handle a request to the function
@@ -23,24 +22,22 @@ def handle(req):
     """
     result = {}
     try:
-
         event = json.loads(req)
 
-        img = open_image(BytesIO(base64.b64decode(event['img'])))
-        prediction = learn.predict(img)[0]
+        im = Image.open(BytesIO(base64.b64decode(event['img'])))
+        im2 = cv2.cvtColor(np.array(im), cv2.COLOR_RGB2BGR)
 
+        img_list = face_alignment(im2, scale=1.05)
+        for img_aligned in img_list:
+            retval, buffer = cv2.imencode('.jpg', img_aligned)
         result = {
-            "function": "Function",
-            "prediction": str(prediction)
+            "function": "Aligned",
+            "img": base64.b64encode(buffer).decode("utf-8")
         }
-
     except:
         result = {
             "function": "Error",
-            "prediction": "Error"
+            "img": "Error"
         }
 
     return json.dumps(result)
-
-
-
