@@ -21,17 +21,26 @@ def handle(req):
     Args:
         req (str): request body
     """
-    event = json.loads(req)
+    result = {}
+    try:
 
-    img = open_image(BytesIO(base64.b64decode(event['img'])))
-    prediction = learn.predict(img)[0]
+        event = json.loads(req)
 
-    result = {
-        "function": "Function",
-        "prediction": str(prediction)
-    }
+        img = open_image(BytesIO(base64.b64decode(event['img'])))
+        prediction = learn.predict(img)[0]
 
+        result = {
+            "function": "Function",
+            "prediction": str(prediction)
+        }
+
+    except:
+        result = {
+            "function": "Error",
+            "prediction": "Error"
+        }
 
     return json.dumps(result)
+
 
 
