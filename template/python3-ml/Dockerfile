@@ -11,7 +11,7 @@ ENV HOME /home/app
 
 RUN apt-get update \
     && apt-get -y install curl bzip2 ${ADDITIONAL_PACKAGE} \
-    && curl -sSL https://github.com/openfaas-incubator/of-watchdog/releases/download/0.5.1/of-watchdog > /usr/bin/fwatchdog \
+    && curl -sSL https://github.com/openfaas-incubator/of-watchdog/releases/download/0.7.2/of-watchdog > /usr/bin/fwatchdog \
     && apt-get -qq -y remove curl \
     && apt-get -qq -y autoremove \
     && apt-get autoclean \
@@ -35,6 +35,7 @@ WORKDIR /home/app/function/
 # RUN conda install -n base --file requirements.txt -c ${CHANNEL}
 
 WORKDIR /home/app/
+USER root
 COPY function/ ./function
 
 # Timeouts may be needed for ML workflows
