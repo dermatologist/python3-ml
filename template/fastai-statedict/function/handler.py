@@ -1,10 +1,21 @@
 import json
+import os
+from pathlib import PurePath
+
 # No warnings in production
 import warnings
 warnings.filterwarnings("ignore")
 
+
+FUNCTION_ROOT = os.environ.get("function_root", "/root/function/")
+
 # Load model here
 # model = 
+
+# fill in weights
+Model.load_state_dict(
+    torch.load(str(PurePath(FUNCTION_ROOT, "data/exported-state-dict.pt")))
+)
 
 def handle(req):
     """handle a request to the function
