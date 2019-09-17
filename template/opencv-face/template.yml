@@ -1,2 +1,2 @@
-language: python3-ml
+language: opencv-face
 fprocess: python3 index.py
