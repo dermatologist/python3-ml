@@ -6,6 +6,7 @@ Template for deploying fastai and other machine learning models.
 
 - fastai-vision
 - opencv-face
+- gensim-text
 - fastai-statedict
 - More to come
 
