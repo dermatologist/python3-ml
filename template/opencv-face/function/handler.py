@@ -1,4 +1,5 @@
 import json
+import os
 from PIL import Image
 from io import BytesIO
 import base64
@@ -19,8 +20,11 @@ def handle(req):
     """handle a request to the function
     Args:
         req (str): request body
+
+    if req is empty try will fail and the except will display image upload page.
+    Upload page submits to the function.
+
     """
-    result = {}
     try:
         event = json.loads(req)
 
@@ -34,10 +38,12 @@ def handle(req):
             "function": "Aligned",
             "img": base64.b64encode(buffer).decode("utf-8")
         }
+        return json.dumps(result)
     except:
-        result = {
-            "function": "Error",
-            "img": "Error"
-        }
+        dirname = os.path.dirname(__file__)
+        path = os.path.join(dirname, 'html', 'upload.html')
 
-    return json.dumps(result)
+        with(open(path, 'r')) as file:
+            html = file.read()
+
+        return html
