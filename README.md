@@ -1,6 +1,6 @@
 # python3-ml
 
-Template for deploying fastai and other machine learning models.
+[OpenFaaS](https://www.openfaas.com/) Template for deploying fastai and other machine learning models on the cloud.
 
 ## Templates available in this repository:
 
