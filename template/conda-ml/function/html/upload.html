@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <title>STK-Align</title>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <style>
+    .result {
+        font-family: 'Roboto Mono', monospace;
+    }
+    </style>
+</head>
+<body>
+	<h1>File Upload</h1>
+	<input id="fileinput" type="file" accept="image/jpeg" onchange="readURL(this);" /> <br><br>
+	<img id="image1" src="" />
+
+
+  <script type="text/javascript">
+
+      function readURL(input) {
+        // Execute ajax request
+            if (input.files && input.files[0]) {
+				var reader = new FileReader();
+                reader.onload = function(e) {
+                    var input = e.target.result
+                    // TODO: Change the url with function-name
+                    $.ajax({
+                        url:'.',
+                        type:'POST',
+                        contentType:"application/octet-stream",
+                        data: input
+                    })
+                    .done(function(data) {
+                      console.log(data);
+                    });
+                };
+				reader.readAsArrayBuffer(input.files[0]);
+			}
+
+      }
+  </script>
+</body>
+</html>
