@@ -38,7 +38,7 @@ RUN mkdir -p function
 RUN touch ./function/__init__.py
 WORKDIR /home/app/function/
 COPY --chown=app:app function/requirements.txt	.
-RUN while read requirement; do conda install --yes $requirement -c ${CHANNEL} || pip install $requirement; done < requirements.txt
+RUN while read requirement; do conda install --yes $requirement -c ${CHANNEL} || pip install $requirement --extra-index-url https://download.pytorch.org/whl/cpu; done < requirements.txt
 
 #install function code
 USER root
