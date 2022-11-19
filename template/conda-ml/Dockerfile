@@ -38,7 +38,7 @@ RUN mkdir -p function
 RUN touch ./function/__init__.py
 WORKDIR /home/app/function/
 COPY --chown=app:app function/requirements.txt	.
-RUN while read requirement; do conda install --yes $requirement -c ${CHANNEL} || pip install $requirement; done < requirements.txt
+RUN while read requirement; do conda install --yes $requirement -c ${CHANNEL} || pip install $requirement --extra-index-url https://download.pytorch.org/whl/cpu; done < requirements.txt
 
 #install function code
 USER root
@@ -62,6 +62,10 @@ ENV fprocess="python index.py"
 ENV cgi_headers="true"
 ENV mode="http"
 ENV upstream_url="http://127.0.0.1:5000"
+ENV exec_timeout="1m30s"
+ENV write_timeout="1m30s"
+ENV read_timeout="1m30s"
+ENV RAW_BODY="false"
 
 HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock ] || exit 1
 
