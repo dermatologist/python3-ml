@@ -1,13 +1,18 @@
 # python3-ml
 
-[OpenFaaS](https://www.openfaas.com/) Template for deploying fastai and other machine learning models on the cloud.
+[OpenFaaS](https://www.openfaas.com/) Template for deploying machine learning models on the cloud.
 
 ## Templates available in this repository:
 
-- fastai-vision
+- **conda-ml** (Base container with conda. Falls back to pip if conda install fails. Use torch/tf for cpu). See example ***requirements.txt*** below.
+```
+torch==1.13.0+cpu
+torchvision==0.14.0+cpu
+```
 - opencv-face
 - gensim-text
-- fastai-statedict
+- ~~fastai-vision~~ Deprecated
+- ~~fastai-statedict~~ Deprecated
 - More to come
 
 ## Downloading the templates
