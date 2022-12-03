@@ -38,6 +38,12 @@ def main_route(path):
     ret = handler.handle(request.get_data(as_text=as_text))
     return ret
 
+    """
+    If index is called directly, then start the Flask server.(FaaS scenario)
+    Else process the command line arguments and call the handler function.(CLI/Kubeflow scenario)
+    ARG1: Path to input file
+    ARG2: Path to output file
+    """
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         serve(app, host='0.0.0.0', port=5000)
