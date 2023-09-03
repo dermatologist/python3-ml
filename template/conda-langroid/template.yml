@@ -1,0 +1,2 @@
+language: conda-ml
+fprocess: python3 index.py
