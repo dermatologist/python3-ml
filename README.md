@@ -1,6 +1,4 @@
-# python3-ml
-
-[OpenFaaS](https://www.openfaas.com/) Template for deploying machine learning models on the cloud.
+# :fuelpump: [OpenFaaS](https://www.openfaas.com/) Templates for deploying machine learning models and LLM agents on the cloud.
 
 ## Templates available in this repository:
 
@@ -9,7 +7,8 @@
 torch==1.13.0+cpu
 torchvision==0.14.0+cpu
 ```
-- conda-ml-kf (Copy of above with KubeFlow support [Read more](https://nuchange.ca/2022/12/using-openfaas-containers-in-kubeflow.html))
+- **conda-ml-kf** (Copy of above with KubeFlow support [Read more](https://nuchange.ca/2022/12/using-openfaas-containers-in-kubeflow.html))
+- **conda-langroid** (Simple OpenFaaS wrapper for [langroid](https://github.com/langroid/langroid))
 - opencv-face
 - gensim-text
 - ~~fastai-vision~~ Deprecated
@@ -34,6 +33,8 @@ Test the new function
 ```
 echo -n content | faas-cli invoke <fn-name>
 ```
+## Give us a star ⭐️
+If you find these templates useful, give us a star. It helps others discover them.
 ## Contributors
 
 * [Bell Eapen](https://nuchange.ca) |  [Contact](https://nuchange.ca/contact)
