@@ -1,6 +1,6 @@
-ARG watchdog_version=0.9.10
+ARG watchdog_version=0.2.2
 ARG conda_version=4.12.0
-FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/of-watchdog:${watchdog_version} as watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:${watchdog_version} as watchdog
 FROM --platform=${TARGETPLATFORM:-linux/amd64} continuumio/miniconda3:${conda_version} as build
 
 
@@ -34,21 +34,6 @@ RUN while read requirement; do conda install --yes $requirement -c ${CHANNEL} ||
 # Build the function directory and install any user-specified components
 USER app
 
-RUN mkdir -p function
-RUN touch ./function/__init__.py
-WORKDIR /home/app/function/
-COPY --chown=app:app function/requirements.txt	.
-RUN while read requirement; do conda install --yes $requirement -c ${CHANNEL} || pip install $requirement --extra-index-url https://download.pytorch.org/whl/cpu; done < requirements.txt
-
-#install function code
-USER root
-
-COPY --chown=app:app function/   .
-
-FROM build as test
-ARG TEST_COMMAND=tox
-ARG TEST_ENABLED=false
-RUN [ "$TEST_ENABLED" = "false" ] && echo "skipping tests" || eval "$TEST_COMMAND"
 
 
 FROM build as ship
