@@ -9,6 +9,7 @@
 torch==1.13.0+cpu
 torchvision==0.14.0+cpu
 ```
+- conda-ml-kf (Copy of above with KubeFlow support [Read more](https://nuchange.ca/2022/12/using-openfaas-containers-in-kubeflow.html))
 - opencv-face
 - gensim-text
 - ~~fastai-vision~~ Deprecated
