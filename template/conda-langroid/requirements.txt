@@ -1,0 +1,2 @@
+langroid
+tox==3.*

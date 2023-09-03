@@ -1,2 +1,2 @@
-language: conda-ml-kf
+language: conda-langroid
 fprocess: python3 index.py
